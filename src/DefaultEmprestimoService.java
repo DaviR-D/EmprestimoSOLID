@@ -47,7 +47,7 @@ public class DefaultEmprestimoService implements EmprestimoService {
         }
 
         // 4) imprime o resultado
-        printer.print(itens, dataEmprestimo, dataPrevista);
+        printer.print(itens, dataEmprestimo, dataPrevista);;
         return true;
     }
 }
