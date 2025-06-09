@@ -1,45 +1,28 @@
-package src;
+package engenhariadesoftware.esiii.Refatorado;
 
-import java.util.Calendar;
 import java.util.Date;
 
 public class Item {
-    //Cada Item tem um livro associado
-	Livro livro;
-    Date dataDevolucao;
-    
-    //Quando um item é criado, um livro é associado a ele
-	public Item(Livro livro) {
-		super();
-		this.livro = livro;
-		
-	}
+    private Livro livro;
+    private Date dataDevolucao;
+    private DevolucaoCalculator calculator;
 
+    public Item(Livro livro) {
+        this(livro, new DefaultDevolucaoCalculator());
+    }
 
-	public Date getDataDevolucao() {
-		return dataDevolucao;
-	}
+    public Item(Livro livro, DevolucaoCalculator calculator) {
+        this.livro = livro;
+        this.calculator = calculator;
+    }
 
-	public void setDataDevolucao(Date dataDevolucao) {
-		this.dataDevolucao = dataDevolucao;
-	}
-	
-	public Livro getLivro() {
-		return livro;
-	}
+    public Date calculaDataDevolucao(Date data) {
+        dataDevolucao = calculator.calculate(data, livro.verPrazo());
+        return dataDevolucao;
+    }
 
-	public void setLivro(Livro livro) {
-		this.livro = livro;
-	}
-	
-	//Metodo para calcular a data de Devolucao de cada Item
-	public Date calculaDataDevolucao(Date data)
-	{  dataDevolucao=data;
-	   Calendar calendar = Calendar.getInstance();
-	   calendar.setTime(data);
-	   calendar.add(Calendar.DATE, livro.verPrazo());
-           dataDevolucao = calendar.getTime();
-	   return dataDevolucao;
-	}
-
+    public Livro getLivro() {
+        return livro;
+    }
 }
+

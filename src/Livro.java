@@ -1,25 +1,31 @@
-package src;
+package engenhariadesoftware.esiii.Refatorado;
 
 public class Livro {
-	Titulo titulo;
-	int codigo;
-	public Livro(int codigo) {
-		//inst�ncia um titulo e o associa ao livro
-		titulo = new Titulo(codigo);
-		this.codigo =codigo;
-	}
-	public int verPrazo() {
-		return titulo.getPrazo();
-	}
-	
-	public boolean verificaLivro() {
-		// TODO Auto-generated method stub
-		if (this.codigo == 3)
-		  return true;
-		 else
-		  return false;
-	}
-    
-	
-}
+    private Titulo titulo;
+    private int codigo;
+    private LivroValidator validator;
 
+    public Livro(int codigo) {
+        this(codigo, new DefaultLivroValidator());
+    }
+
+    public Livro(int codigo, LivroValidator validator) {
+        this.codigo = codigo;
+        this.titulo = new Titulo(codigo);
+        this.validator = validator;
+    }
+
+    // mantém assinatura para Controle.java
+    public boolean verificaLivro() {
+        return validator.isValid(this);
+    }
+
+    public int verPrazo() {
+        return titulo.getPrazo();
+    }
+
+    // getter necessário ao validator
+    public int getCodigo() {
+        return codigo;
+    }
+}

@@ -1,17 +1,21 @@
-package src;
+package engenhariadesoftware.esiii.Refatorado;
 
 public class Titulo {
-int prazo;
-public Titulo(int codigo)
-{
-	this.prazo = codigo+1;
-}
-public int getPrazo() {
-	return prazo;
-}
+    private int prazo;
 
-public void setPrazo(int prazo) {
-	this.prazo = prazo;
-}
+    public Titulo(int codigo) {
+        this(codigo, new DefaultPrazoStrategy());
+    }
 
+    public Titulo(int codigo, PrazoStrategy strategy) {
+        this.prazo = strategy.computePrazo(codigo);
+    }
+
+    public int getPrazo() {
+        return prazo;
+    }
+
+    public void setPrazo(int prazo) {
+        this.prazo = prazo;
+    }
 }
